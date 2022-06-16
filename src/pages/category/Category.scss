@@ -1,0 +1,58 @@
+@import "../../module.scss";
+
+.category {
+   flex: 1 1 auto;
+   padding-top: rem(160px);
+   padding-bottom: rem(191px);
+   &__container {
+      .category__name {
+         font-size: rem(42px);
+         line-height: 1.6;
+         &::first-letter {
+            text-transform: uppercase;
+         }
+         // TABLET //
+         @media (max-width: rem(991.97px)) {
+            & {
+               font-size: rem(36px);
+            }
+         }
+      }
+      .category__cards {
+         display: flex;
+         column-gap: 3.3%;
+         flex-wrap: wrap;
+         @media (max-width: rem(1299.8px)) {
+            & {
+               column-gap: 10.5%;
+            }
+         }
+         @media (max-width: rem(767.97px)) {
+            justify-content: space-around;
+         }
+      }
+   }
+   @media (max-width: rem(991.97px)) {
+      & {
+         padding-top: rem(120px);
+      }
+   }
+}
+.loader__container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   padding-top: rem(160px);
+   font-size: 40px;
+}
+
+// PC //
+@media (max-width: rem(1270px)) {
+}
+// TABLET //
+@media (max-width: rem(991.97px)) {
+}
+// MOBILE //
+@media (max-width: rem(767.97px)) {
+}

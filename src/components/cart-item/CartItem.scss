@@ -1,0 +1,171 @@
+@import "../../module.scss";
+
+.bag-item {
+   display: flex;
+   margin-bottom: rem(24px);
+   &.in-popup {
+      flex-direction: row;
+      margin-top: rem(32px);
+      margin-bottom: rem(0px);
+   }
+   &__info {
+      flex: 1 1 auto;
+      .bag-item__brand {
+         font-weight: 600;
+         font-size: rem(30px);
+         line-height: 0.9;
+         margin-bottom: rem(16px);
+         &.in-popup {
+            font-weight: 300;
+            font-size: rem(16px);
+            line-height: 1.6;
+            margin-bottom: rem(8px);
+         }
+      }
+      .bag-item__name {
+         font-weight: 400;
+         font-size: rem(30px);
+         line-height: 0.9;
+         margin-bottom: rem(20px);
+         &.in-popup {
+            @extend .bag-item__brand.in-popup;
+         }
+      }
+      .bag-item__price {
+         font-weight: 700;
+         font-size: rem(24px);
+         line-height: 0.75;
+         padding: rem(12px) rem(0px) rem(34px) rem(0px);
+         &.in-popup {
+            font-weight: 500;
+            font-size: rem(16px);
+            line-height: 1.6;
+            padding: rem(0px) rem(0px) rem(12px) rem(0px);
+         }
+      }
+      .bag-item__attributes {
+         .bag-item__attribute {
+            padding-bottom: rem(16px);
+            &:last-child {
+               padding-bottom: rem(0px);
+            }
+            &_text {
+               display: flex;
+               flex-wrap: wrap;
+               padding-top: rem(8px);
+               column-gap: rem(8px);
+               row-gap: rem(6px);
+            }
+            &_swatch {
+               @extend .bag-item__attribute_text;
+               row-gap: rem(6px);
+               padding: rem(10px) rem(2px) rem(2px) rem(2px);
+            }
+            &.in-popup {
+               & {
+                  padding-bottom: rem(8px);
+               }
+            }
+            .bag-item__attribute-name {
+               font-family: "Roboto Condensed";
+               text-transform: uppercase;
+               font-size: rem(18px);
+               line-height: 1;
+               &.in-popup {
+                  font-family: "Raleway";
+                  text-transform: none;
+                  font-size: rem(14px);
+                  line-height: 1.14;
+               }
+            }
+         }
+      }
+   }
+   &__photo-block {
+      display: flex;
+      height: rem(288px);
+      &.in-popup {
+         height: rem(190px);
+      }
+      .bag-item__count {
+      }
+      .count {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         &__increment {
+            width: rem(45px);
+            height: rem(45px);
+            border: 1px solid $primary-color;
+            cursor: pointer;
+            background: url("../../assets/images/vertical-15.svg") left 21px top 13px no-repeat,
+               url("../../assets/images/horizontal-15.svg") left 13px top 21px no-repeat;
+            &.in-popup {
+               width: rem(24px);
+               height: rem(24px);
+               background: url("../../assets/images/vertical.svg") left 10px top 6px no-repeat,
+                  url("../../assets/images/horizontal.svg") left 6px top 10px no-repeat;
+            }
+         }
+         &__number {
+            font-weight: 500;
+            font-size: rem(24px);
+            line-height: 1.6;
+            text-align: center;
+            &.in-popup {
+               font-size: rem(16px);
+            }
+         }
+         &__decrement {
+            @extend .count__increment;
+            background: url("../../assets/images/horizontal-15.svg") left 13px top 21px no-repeat;
+            &.in-popup {
+               background: url("../../assets/images/horizontal.svg") left 6px top 10px no-repeat;
+            }
+         }
+      }
+      .bag-item__photo {
+         width: rem(192px);
+         margin: rem(0px) rem(0px) rem(0px) rem(24px);
+         &.in-popup {
+            @extend %center;
+            width: rem(121px);
+            height: rem(190px);
+            margin: rem(0px) rem(4px) rem(0px) rem(8px);
+         }
+         & img {
+            max-width: 100%;
+            max-height: 100%;
+         }
+      }
+   }
+   @media (max-width: rem(767.97px)) {
+      & {
+         flex-direction: column;
+      }
+      .bag-item__brand {
+         font-weight: 500;
+         font-size: rem(24px);
+         margin-bottom: rem(12px);
+      }
+      .bag-item__name {
+         font-weight: 300;
+         font-size: rem(24px);
+         margin-bottom: rem(14px);
+      }
+      .bag-item__price {
+         font-weight: 600;
+         font-size: rem(20px);
+         padding: rem(8px) rem(0px) rem(28px) rem(0px);
+      }
+      .bag-item__attributes .bag-item__attribute {
+         padding-bottom: rem(10px);
+      }
+      .bag-item__attributes .bag-item__attribute .bag-item__attribute-name {
+         font-family: "Roboto Condensed";
+         text-transform: uppercase;
+         font-size: rem(16px);
+      }
+      
+   }
+}

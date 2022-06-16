@@ -1,0 +1,147 @@
+@import "../../module.scss";
+
+.product {
+   flex: 1 1 auto;
+   padding: rem(160px) rem(0px) rem(180px) rem(0px);
+   &__container {
+      display: flex;
+      .product__photoBlock {
+         .product__photo-line {
+            display: flex;
+            flex-direction: column;
+            row-gap: rem(35px);
+            padding: rem(0px) rem(35px) rem(0px) rem(0px);
+         }
+         .product__photo {
+            width: rem(80px);
+            height: rem(80px);
+            cursor: pointer;
+            & img {
+               max-width: 100%;
+               max-height: 100%;
+            }
+            &.out-of-stock {
+               opacity: 0.5;
+            }
+         }
+      }
+      .product__bigPhoto {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         width: rem(735px);
+         height: rem(550px);
+         padding: rem(0px) rem(100px) rem(0px) rem(0px);
+         & img {
+            max-width: 100%;
+            max-height: 100%;
+         }
+         &.out-of-stock {
+            opacity: 0.5;
+            &::before {
+               position: absolute;
+               content: "out of stock";
+               text-transform: uppercase;
+               font-size: 24px;
+               line-height: 1.6;
+               color: #8d8f9a;
+            }
+         }
+      }
+      .product__info {
+         width: rem(292px);
+         .product__brand {
+            font-weight: 600;
+            font-size: rem(30px);
+            line-height: 0.9;
+            margin-bottom: rem(16px);
+         }
+         .product__name {
+            font-size: rem(30px);
+            line-height: 0.9;
+            margin-bottom: rem(43px);
+         }
+         .product__subtitle {
+            font-family: "Roboto Condensed";
+            text-transform: uppercase;
+            font-size: rem(18px);
+            line-height: 1;
+         }
+         .product__attributes {
+            .product__attribute {
+               padding-bottom: rem(24px);
+               &_text {
+                  display: flex;
+                  flex-wrap: wrap;
+                  padding-top: rem(8px);
+                  column-gap: rem(12px);
+                  row-gap: rem(6px);
+               }
+               &_swatch {
+                  @extend .product__attribute_text;
+                  row-gap: rem(6px);
+                  padding: rem(10px) rem(2px) rem(2px) rem(2px);
+               }
+            }
+         }
+         .product__price {
+            font-weight: 700;
+            font-size: rem(24px);
+            line-height: 0.75;
+            padding: rem(12px) rem(0px) rem(34px) rem(0px);
+            .product__amount {
+               margin-top: rem(24px);
+            }
+         }
+         &_in-cart {
+            font-size: rem(30px);
+            line-height: 1.2;
+            color: $second-color;
+         }
+         .product__add-btn {
+         }
+         .product__description {
+            font-family: "Roboto";
+            font-weight: 400;
+            font-size: rem(16px);
+            line-height: 1.6;
+            margin: rem(40px) rem(0px) rem(0px) rem(0px);
+            & li::before {
+               content: "";
+               width: 10px;
+               height: 10px;
+               background-color: $main-bg-color;
+               border-radius: 50%;
+               border: 1px solid $second-color;
+               display: inline-block;
+               margin: 0 10px 0 0;
+            }
+            & h1 {
+               font-size: 2em;
+               margin-top: 0.67em;
+               margin-bottom: 0.67em;
+               font-weight: bold;
+            }
+            & h3 {
+               font-size: 1.17em;
+               margin-top: 1em;
+               margin-bottom: 1em;
+               font-weight: bold;
+            }
+            & p {
+               display: block;
+               margin-top: 1em;
+               margin-bottom: 1em;
+            }
+         }
+      }
+   }
+}
+.loader__container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   padding-top: rem(160px);
+   font-size: 40px;
+}

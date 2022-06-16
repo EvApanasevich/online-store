@@ -1,0 +1,33 @@
+@import "../../../module.scss";
+
+.text-attribute-btn {
+   @extend %center;
+   //display: inline-block;
+   min-width: rem(63px);
+   height: rem(45px);
+   border: 1px solid #1d1f22;
+   font-family: "Source Sans Pro";
+   font-size: rem(16px);
+   text-transform: uppercase;
+   line-height: 1.12;
+   letter-spacing: 0.05em;
+   color: #292929;
+   background: #ffffff;
+   cursor: pointer;
+   transition: 0.3s border, 0.3s color;
+   &.selected {
+      background-color: $primary-color;
+      color: #ffffff;
+   }
+   &.out-of-stock {
+      cursor: auto;
+   }
+   &.in-popup {
+      & {
+         font-size: rem(14px);
+         min-width: rem(25px);
+         height: rem(25px);
+         padding: rem(0px) rem(5px);
+      }
+   }
+}

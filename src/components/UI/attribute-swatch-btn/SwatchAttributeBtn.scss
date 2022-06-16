@@ -1,0 +1,42 @@
+@import "../../../module.scss";
+
+.attribute-swatch-color {
+   position: relative;
+   width: rem(32px);
+   height: rem(32px);
+   cursor: pointer;
+   &::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: rem(36px);
+      height: rem(36px);
+      left: rem(-2px);
+      top: rem(-2px);
+      border: 1px solid $second-color;
+      opacity: 0;
+   }
+   &.white {
+      border: 1px solid #e6e6e6;
+      cursor: pointer;
+   }
+   &.out-of-stock {
+      cursor: auto;
+   }
+   &.selected {
+      &::after {
+         opacity: 1;
+         transition: opacity 0.3s ease 0s;
+      }
+   }
+   &.in-popup {
+      & {
+         width: 16px;
+         height: 16px;
+      }
+      &::after {
+         width: rem(20px);
+         height: rem(20px);
+      }
+   }
+}

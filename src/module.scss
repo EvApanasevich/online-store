@@ -1,0 +1,16 @@
+// variables ========================================== //
+$main-bg-color: #ffffff;
+$primary-color: #1D1F22;
+$second-color: #5ece7b;
+
+// functions ========================================== //
+@function rem($px) {
+   @return ($px / 16px) * 1rem;
+}
+
+// templates ========================================== //
+%center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}

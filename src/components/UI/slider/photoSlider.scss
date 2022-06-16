@@ -1,0 +1,39 @@
+@import "../../../module.scss";
+
+.photo-slider {
+   display: flex;
+   
+   position: relative;
+   height: 100%;
+   overflow: hidden;
+   .photos-line {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      transition-property: transform;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-out;
+      & img {
+         max-width: rem(192px);
+         max-height: 100%;
+         cursor: pointer;
+      }
+   }
+   .prev-arrow {
+      @extend %center;
+      position: absolute;
+      width: rem(24px);
+      height: rem(24px);
+      top: rem(248px);
+      left: rem(128px);
+      background: #000 url("../../../assets/images/arrow-photo.svg") top 5.2px left 7px no-repeat;
+      opacity: 0.7;
+      cursor: pointer;
+   }
+   .next-arrow {
+      @extend .prev-arrow;
+      left: rem(160px);
+      transform: rotate(-180deg);
+   }
+}

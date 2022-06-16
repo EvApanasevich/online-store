@@ -1,0 +1,293 @@
+@import "../module.scss";
+@import "../pages/category/Category.scss";
+@import "../index.scss";
+
+.header {
+   position: fixed;
+   width: 100%;
+   height: rem(80px);
+   top: 0;
+   left: 0;
+   z-index: 10;
+   background-color: $main-bg-color;
+   .disabled {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      top: rem(80px);
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.3s opacity, 0.3s visibility;
+      &.active {
+         @extend .disabled;
+         opacity: 0.22;
+         visibility: visible;
+         transition: 0.3s opacity, 0.3s visibility;
+      }
+   }
+
+   .header__container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      min-height: 100%;
+      .menu {
+         @extend %center;
+         .menu__list {
+            @extend %center;
+            height: 100%;
+            .menu__item {
+               @extend %center;
+               flex-direction: column;
+               height: 100%;
+               padding: rem(0px) rem(16px);
+               position: relative;
+               .menu__link {
+                  line-height: 1.2;
+                  text-transform: uppercase;
+                  cursor: pointer;
+                  color: $primary-color;
+               }
+               &::after {
+                  content: "";
+                  opacity: 0;
+                  position: absolute;
+                  width: 100%;
+                  height: rem(2px);
+                  background-color: $second-color;
+                  left: 0;
+                  bottom: 0;
+               }
+               &.active {
+                  .menu__link {
+                     font-weight: 600;
+                     color: $second-color;
+                  }
+                  &::after {
+                     opacity: 1;
+                     transition: opacity 0.5s ease 0s;
+                  }
+               }
+            }
+         }
+         @media (max-width: rem(767.97px)) {
+            display: none;
+         }
+      }
+      .header__logo {
+         position: absolute;
+         top: calc(50% - 15px);
+         left: calc(50% - 15.5px);
+         z-index: 12;
+         & img {
+            width: rem(31px);
+            height: rem(30px);
+         }
+      }
+      .action {
+         @extend %center;
+         .action__currency {
+            position: relative;
+            .action__currency-logo {
+               position: relative;
+               width: rem(40px);
+               text-align: right;
+               font-weight: 500;
+               font-size: rem(18px);
+               line-height: 1.6;
+               padding-right: rem(16px);
+               position: relative;
+               cursor: pointer;
+               z-index: 12;
+               &::after {
+                  content: "";
+                  display: inline-block;
+                  background-image: url("../assets/images/arrow.svg");
+                  position: absolute;
+                  width: rem(8px);
+                  height: rem(4px);
+                  right: rem(0px);
+                  bottom: rem(10px);
+                  transition: transform 0.3s ease 0s;
+               }
+               &.active {
+                  &::after {
+                     transform: rotate(-180deg);
+                  }
+               }
+            }
+            .currencies {
+               position: absolute;
+               width: rem(114px);
+               top: rem(-300px);
+               left: rem(-7px);
+               background: #ffffff;
+               transition: 0.7s top, 0.3s filter;
+               z-index: 11;
+               &.active {
+                  @extend .currencies;
+                  top: rem(40px);
+                  transition: 0.7s top, 0.3s filter;
+                  filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+               }
+               .currencies__list {
+                  height: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                  align-items: flex-start;
+                  padding: rem(12px) rem(0px);
+                  .currencies__item {
+                     width: 100%;
+                     font-weight: 500;
+                     font-size: rem(18px);
+                     line-height: 1.6;
+                     cursor: pointer;
+                     padding: rem(8px) rem(0px) rem(8px) rem(20px);
+                     transition: 0.2s background-color;
+                  }
+                  .currencies__item:hover {
+                     background-color: #eeeeee;
+                     transition: 0.2s background-color;
+                  }
+               }
+            }
+         }
+         .action__cart {
+            position: relative;
+            padding-left: rem(22px);
+            &::after {
+               position: absolute;
+               content: "";
+               width: rem(340px);
+               height: rem(50px);
+               background-color: $main-bg-color;
+               top: rem(-31px);
+               left: rem(-270px);
+               z-index: 11;
+            }
+            .action__cart-logo {
+               position: relative;
+               cursor: pointer;
+               z-index: 12;
+               & img {
+                  width: rem(20px);
+                  height: rem(19px);
+               }
+            }
+
+            .action__things-counter {
+               @extend %center;
+               position: absolute;
+               top: rem(-9px);
+               left: rem(35px);
+               width: rem(20px);
+               height: rem(20px);
+               background-color: $primary-color;
+               border-radius: rem(60px);
+               font-family: Roboto;
+               font-weight: 700;
+               font-size: rem(14px);
+               line-height: 1.1;
+               text-transform: uppercase;
+               color: $main-bg-color;
+               cursor: pointer;
+               z-index: 12;
+            }
+            .my-bag {
+               position: absolute;
+               width: rem(325px);
+               min-height: rem(200px);
+               left: rem(-270px);
+               top: rem(-600px);
+               background-color: #ffffff;
+               transition: top 0.5s ease 0s;
+               @media (max-width: rem(359px)) {
+                  left: rem(-250px)
+               }
+               &_active {
+                  @extend .my-bag;
+                  top: rem(49px);
+                  transition: top 0.7s ease 0s;
+               }
+               &__container {
+                  padding: rem(8px) rem(8px) rem(32px) rem(16px);
+                  .my-bag__title {
+                     font-weight: 500;
+                     line-height: 1.6;
+                     & span {
+                        font-weight: 700;
+                        line-height: 1.6;
+                     }
+                  }
+                  .my-bag__list-cart-item {
+                     max-height: 400px;
+                     overflow: auto;
+                     overflow-x: hidden;
+                     &::-webkit-scrollbar {
+                        width: 5px;
+                        background-color: #f9f9fd;
+                     }
+                     &::-webkit-scrollbar-thumb {
+                        border-radius: 10px;
+                        background-color: $second-color;
+                    }
+                     .my-bag__no-products {
+                        line-height: 1.2;
+                        margin: rem(32px) rem(10px) rem(0px) rem(0px);
+                        color: $second-color;
+                        overflow: hidden;
+                     }
+                  }
+                  .my-bag__total {
+                     @extend %center;
+                     justify-content: space-between;
+                     margin: rem(10px) rem(14px) rem(35px) rem(0px);
+                     & span:first-child {
+                        font-family: Roboto;
+                        font-weight: 500;
+                        line-height: 1.6;
+                     }
+                     & span:last-child {
+                        font-weight: 700;
+                     }
+                  }
+                  .my-bag__buttons {
+                  }
+                  .buttons {
+                     @extend %center;
+                     justify-content: space-between;
+                     margin-right: rem(8px);
+                     &__view {
+                        width: rem(138px);
+                        height: rem(43px);
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        font-size: rem(14px);
+                        line-height: 1.2;
+                        background: $main-bg-color;
+                        border: 1px solid $primary-color;
+                     }
+                     &__check {
+                        width: rem(138px);
+                        height: rem(43px);
+                        text-transform: uppercase;
+                        font-weight: 600;
+                        font-size: rem(14px);
+                        line-height: 1.2;
+                        background: $second-color;
+                        color: #ffffff;
+                     }
+                  }
+               }
+            }
+         }
+      }
+      @media (max-width: rem(767.97px)) {
+         justify-content: flex-end;
+      }
+   }
+}

@@ -1,0 +1,32 @@
+@import "../../../module.scss";
+
+.button {
+   @extend %center;
+   width: rem(138px);
+   height: rem(43px);
+   text-transform: uppercase;
+   font-weight: 600;
+   font-size: rem(14px);
+   line-height: 1.2;
+   background: $second-color;
+   color: #ffffff;
+   cursor: pointer;
+   &.view-bag {
+      color: $primary-color;
+      background: $main-bg-color;
+      border: 1px solid $primary-color;
+   }
+   &.check-out {
+   }
+   &.add-to-cart {
+      width: rem(292px);
+      height: rem(52px);
+      font-size: rem(16px);
+   }
+   &.order {
+      width: rem(279px);
+      height: rem(43px);
+      font-size: rem(16px);
+      line-height: 1.2;
+   }
+}
