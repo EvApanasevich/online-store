@@ -29,4 +29,12 @@
       font-size: rem(16px);
       line-height: 1.2;
    }
+   @media (max-width: rem(767.97px)) {
+      &.order {
+         width: rem(260px);
+      }
+      &.add-to-cart {
+         width: rem(260px);
+      }
+   }
 }

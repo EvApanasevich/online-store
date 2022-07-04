@@ -34,8 +34,6 @@ class App extends React.Component {
    }
 
    render() {
-      console.log(this.props.productsInCart);
-
       if (!this.props.isInitialized) {
          return <div>LOADING...</div>
       }

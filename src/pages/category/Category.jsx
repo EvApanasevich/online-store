@@ -15,6 +15,7 @@ export class Category extends React.Component {
    componentDidUpdate(prevProps) {
       if (this.props.currentCategoryName !== prevProps.currentCategoryName) {
          this.props.getCategory(this.props.currentCategoryName)
+         window.scrollTo(0,0)
       }
    }
 

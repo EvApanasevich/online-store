@@ -178,7 +178,6 @@
                   height: rem(19px);
                }
             }
-
             .action__things-counter {
                @extend %center;
                position: absolute;
@@ -206,7 +205,7 @@
                background-color: #ffffff;
                transition: top 0.5s ease 0s;
                @media (max-width: rem(359px)) {
-                  left: rem(-250px)
+                  left: rem(-250px);
                }
                &_active {
                   @extend .my-bag;
@@ -234,7 +233,7 @@
                      &::-webkit-scrollbar-thumb {
                         border-radius: 10px;
                         background-color: $second-color;
-                    }
+                     }
                      .my-bag__no-products {
                         line-height: 1.2;
                         margin: rem(32px) rem(10px) rem(0px) rem(0px);
@@ -287,7 +286,15 @@
          }
       }
       @media (max-width: rem(767.97px)) {
-         justify-content: flex-end;
+         & {
+            justify-content: flex-end;
+         }
+         .action__cart .my-bag .my-bag__container .my-bag__list-cart-item {
+            max-height: 250px;
+         }
+         .action__cart .my-bag .my-bag__container .my-bag__total {
+            margin: rem(10px) rem(14px) rem(10px) rem(0px);
+         }
       }
    }
 }

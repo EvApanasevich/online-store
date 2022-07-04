@@ -2,7 +2,6 @@
 
 .text-attribute-btn {
    @extend %center;
-   //display: inline-block;
    min-width: rem(63px);
    height: rem(45px);
    border: 1px solid #1d1f22;
@@ -28,6 +27,12 @@
          min-width: rem(25px);
          height: rem(25px);
          padding: rem(0px) rem(5px);
+      }
+   }
+   @media (max-width: rem(767.97px)) {
+      & {
+         min-width: rem(56px);
+         height: rem(38px);
       }
    }
 }

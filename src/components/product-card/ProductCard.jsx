@@ -19,13 +19,11 @@ export class ProductCard extends React.Component {
 
       return (
          <div className={!product.inStock ? 'product-card out-of-stock' : 'product-card'}>
-
-            <div className={'product-card__photo'}>
-               <NavLink className={"link"} to={`/product/${product.id}`}>
+            <NavLink className={"link"} to={`/product/${product.id}`}>
+               <div className={'product-card__photo'}>
                   <img src={product.gallery[0]} alt="product" />
-               </NavLink>
-            </div>
-
+               </div>
+            </NavLink>
             <div className={'product-card__title'}>{product.brand} {product.name}
                {!inCart ?
                   <div onClick={() => putProductInCart(product)} className={'product-card__cart'}>

@@ -131,7 +131,7 @@ export class Header extends React.Component {
                                     this.changeCurrencyPopUp()
                                  }
                               }} to='/cart'>
-                                 <Button children={'view bag'} modStyle={'view-bag'} />
+                                 <Button onClickHandler={() => { }} children={'view bag'} modStyle={'view-bag'} />
                               </NavLink>
                               <NavLink onClick={() => {
                                  this.changeMyBagPopUp()
@@ -139,7 +139,7 @@ export class Header extends React.Component {
                                     this.changeCurrencyPopUp()
                                  }
                               }} to='/cart'>
-                                 <Button children={'check out'} modStyle={'check-out'} />
+                                 <Button onClickHandler={() => { }} children={'check out'} modStyle={'check-out'} />
                               </NavLink>
                            </div>
                         </div>
