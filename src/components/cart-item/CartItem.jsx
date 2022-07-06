@@ -3,6 +3,7 @@ import './CartItem.scss'
 import { TextAttributeBtn } from '../UI/attribute-text-btn/TextAttributeBtn';
 import { SwatchAttributeBtn } from '../UI/attribute-swatch-btn/SwatchAttributeBtn';
 import { PhotoSlider } from '../UI/slider/photoSlider';
+import util from '../../util/general-functions';
 
 export class CartItem extends React.Component {
    constructor(props) {
@@ -10,28 +11,26 @@ export class CartItem extends React.Component {
       this.state = {
       }
    }
-   getPrice(product) {
-      const price = product.prices.find(price => price.currency.symbol === this.props.currentCurrency)
-      return `${price.currency.symbol}${price.amount}`
-   }
    getAttributeStyle(type) {
-      if (type === "text") {
+      if (type === 'text') {
          return "bag-item__attribute_text"
-      } else if (type === "swatch") {
+      } else if (type === 'swatch') {
          return "bag-item__attribute_swatch"
       }
    }
    isSelected(attributeId, attributeItemId) {
-      return this.props.product.selectedAttributes.some(selectedAttribute => selectedAttribute.attributeId === attributeId &&
+      return this.props.product.selectedAttributes.some(selectedAttribute =>
+         selectedAttribute.attributeId === attributeId &&
          selectedAttribute.attributeValue === attributeItemId)
    }
 
    render() {
-      const { product, setSelectedAttributeValueFromCart, setCountProduct, cartPopUp, enlargePhoto } = this.props
+      const { product, setSelectedAttributeValueFromCart, setCountProduct,
+         cartPopUp, enlargePhoto, currentCurrency } = this.props
 
       return (
          <div className={cartPopUp ? "bag-item in-popup" : "bag-item"}>
-            <div className={'bag-item__line'}></div>
+            <div className={"bag-item__line"}></div>
             <div className={"bag-item__info"}>
                <div className={cartPopUp ? "bag-item__brand in-popup" : "bag-item__brand"}>
                   {product.brand}
@@ -39,11 +38,15 @@ export class CartItem extends React.Component {
                <div className={cartPopUp ? "bag-item__name in-popup" : "bag-item__name"}>
                   {product.name}
                </div>
-               <div className={cartPopUp ? "bag-item__price in-popup" : "bag-item__price"}>{this.getPrice(product)}</div>
+               <div className={cartPopUp ? "bag-item__price in-popup" : "bag-item__price"}>
+                  {util.getPrice(product, currentCurrency)}
+               </div>
                <div className={"bag-item__attributes"}>
                   {product.attributes.map(attribute =>
                      <div key={attribute.id} className={cartPopUp ? "bag-item__attribute in-popup" : "bag-item__attribute"}>
-                        <span className={cartPopUp ? "bag-item__attribute-name in-popup" : "bag-item__attribute-name"}>{attribute.name}:</span>
+                        <span className={cartPopUp ? "bag-item__attribute-name in-popup" : "bag-item__attribute-name"}>
+                           {attribute.name}:
+                        </span>
                         <div className={this.getAttributeStyle(attribute.type)}>
                            {attribute.items.map(item =>
                               attribute.type === 'text' ?
@@ -91,8 +94,8 @@ export class CartItem extends React.Component {
                   </div>
                </div>
                <div className={cartPopUp ? "bag-item__photo in-popup" : "bag-item__photo"}>
-                  {cartPopUp ? <img src={product.gallery[0]} alt="product" /> :
-                     <PhotoSlider product={product} enlargePhoto={enlargePhoto}/>
+                  {cartPopUp ? <img src={product.gallery[0]} alt='product' /> :
+                     <PhotoSlider product={product} enlargePhoto={enlargePhoto} />
                   }
                </div>
             </div>

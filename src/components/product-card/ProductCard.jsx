@@ -2,6 +2,7 @@ import React from 'react';
 import './ProductCard.scss';
 import cart from '../../assets/images/cart-white.svg';
 import { NavLink } from 'react-router-dom';
+import util from '../../util/general-functions';
 
 export class ProductCard extends React.Component {
    constructor(props) {
@@ -9,30 +10,26 @@ export class ProductCard extends React.Component {
       this.state = {
       }
    }
-   getPrice(product) {
-      const price = product.prices.find(price => price.currency.symbol === this.props.currentCurrency)
-      return `${price.currency.symbol}${price.amount}`
-   }
 
    render() {
-      const { product, putProductInCart, inCart } = this.props
+      const { product, putProductInCart, inCart, currentCurrency} = this.props
 
       return (
-         <div className={!product.inStock ? 'product-card out-of-stock' : 'product-card'}>
+         <div className={!product.inStock ? "product-card out-of-stock" : "product-card"}>
             <NavLink className={"link"} to={`/product/${product.id}`}>
-               <div className={'product-card__photo'}>
-                  <img src={product.gallery[0]} alt="product" />
+               <div className={"product-card__photo"}>
+                  <img src={product.gallery[0]} alt='product' />
                </div>
             </NavLink>
-            <div className={'product-card__title'}>{product.brand} {product.name}
-               {!inCart ?
-                  <div onClick={() => putProductInCart(product)} className={'product-card__cart'}>
-                     <img src={cart} alt="cart" />
+            {!inCart ?
+                  <div onClick={() => putProductInCart(product)} className={"product-card__cart"}>
+                     <img src={cart} alt='cart' />
                   </div> :
-                  <div className={'product-card__cart_in'}>in cart</div>
+                  <div className={"product-card__cart_in"}>in cart</div>
                }
+            <div className={"product-card__title"}>{product.brand} {product.name}
             </div>
-            <span className={'product-card__price'}>{this.getPrice(product)}</span>
+            <span className={"product-card__price"}>{util.getPrice(product, currentCurrency)}</span>
          </div>
       )
    }

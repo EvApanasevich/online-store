@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import "./BurgerNav.scss";
+import './BurgerNav.scss';
 
 export class BurgerNav extends React.Component {
    constructor(props) {
@@ -19,7 +19,7 @@ export class BurgerNav extends React.Component {
          <div className={"burger-nav"}>
             <ul className={this.state.burgerIsOpen ? "burger-nav-items show" : "burger-nav-items"}>
                {categoriesNames.map(categorieName =>
-                  <li className={categorieName.name === currentCategoryName ? "nav-item active" : "nav-item"}>
+                  <li key={categorieName.name} className={categorieName.name === currentCategoryName ? "nav-item active" : "nav-item"}>
                      <NavLink className={"link"} key={categorieName.name} to='/' onClick={() => {
                         changeCategory(categorieName.name)
                         this.toggleBurger()

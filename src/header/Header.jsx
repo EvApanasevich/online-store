@@ -6,6 +6,7 @@ import cart from '../assets/images/cart.svg';
 import { CartItem } from '../components/cart-item/CartItem';
 import { Button } from '../components/UI/button/Button';
 import { BurgerNav } from '../components/UI/burger-nav/BurgerNav';
+import util from '../util/general-functions';
 
 export class Header extends React.Component {
    constructor(props) {
@@ -28,26 +29,11 @@ export class Header extends React.Component {
          this.changeCurrencyPopUp()
       }
    }
-   changeCurrencyPopUp() {
-      this.props.changeCurrencyPopUpStatus()
-   }
-   changeMyBagPopUp() {
-      this.props.changeMyBagPopUpStatus()
-   }
-   getTotal() {
-      const total = this.props.productsInCart.reduce((sum, product) => {
-         const price = product.prices.find(price =>
-            price.currency.symbol === this.props.currentCurrency
-         )
-         return sum + price.amount * product.count
-      }, 0)
-      return `${this.props.currentCurrency}${total.toFixed(2)}`
-   }
 
    render() {
       const { categoriesNames, currencies, currentCurrency, currentCategoryName,
          activeCurrencyPopUp, activeMyBagPopUp, productsInCart, setSelectedAttributeValueFromCart,
-         setCountProduct } = this.props
+         setCountProduct, changeCurrencyPopUpStatus, changeMyBagPopUpStatus } = this.props
 
       return (
          <div className={"header"}>
@@ -69,12 +55,12 @@ export class Header extends React.Component {
                </nav>
                <div className={"header__logo"}>
                   <NavLink to='/'>
-                     <img src={logo} alt="logo"></img>
+                     <img src={logo} alt='logo'></img>
                   </NavLink>
                </div>
                <div className={"action"}>
                   <div className={"action__currency"}>
-                     <div onClick={() => this.changeCurrencyPopUp()}
+                     <div onClick={() => changeCurrencyPopUpStatus()}
                         className={activeCurrencyPopUp ?
                            "action__currency-logo active" : "action__currency-logo"}>{currentCurrency}
                      </div>
@@ -91,11 +77,11 @@ export class Header extends React.Component {
                      </div>
                   </div>
                   <div className={"action__cart"}>
-                     <div onClick={() => this.changeMyBagPopUp()} className={"action__cart-logo"}>
-                        <img src={cart} alt="cart" />
+                     <div onClick={() => changeMyBagPopUpStatus()} className={"action__cart-logo"}>
+                        <img src={cart} alt='cart' />
                      </div>
                      {(productsInCart.length > 0) &&
-                        <div onClick={() => this.changeMyBagPopUp()}
+                        <div onClick={() => changeMyBagPopUpStatus()}
                            className={"action__things-counter"}>{productsInCart.length}
                         </div>}
                      <div className={activeMyBagPopUp ? "my-bag_active" : "my-bag"}>
@@ -106,7 +92,7 @@ export class Header extends React.Component {
                            </div>
                            <div className={"my-bag__list-cart-item"}>
                               {productsInCart.length === 0 ?
-                                 <div className="my-bag__no-products">
+                                 <div className={"my-bag__no-products"}>
                                     There are no products in the cart. Please add a product. Happy shopping!
                                  </div> :
                                  productsInCart.map((product) =>
@@ -122,21 +108,21 @@ export class Header extends React.Component {
                            </div>
                            <div className={"my-bag__total"}>
                               <span>Total</span>
-                              <span>{this.getTotal()}</span>
+                              <span>{util.getTotal(productsInCart, currentCurrency)}</span>
                            </div>
                            <div className={"my-bag__buttons buttons"}>
                               <NavLink onClick={() => {
-                                 this.changeMyBagPopUp()
+                                 changeMyBagPopUpStatus()
                                  if (activeCurrencyPopUp) {
-                                    this.changeCurrencyPopUp()
+                                    changeCurrencyPopUpStatus()
                                  }
                               }} to='/cart'>
                                  <Button onClickHandler={() => { }} children={'view bag'} modStyle={'view-bag'} />
                               </NavLink>
                               <NavLink onClick={() => {
-                                 this.changeMyBagPopUp()
+                                 changeMyBagPopUpStatus()
                                  if (activeCurrencyPopUp) {
-                                    this.changeCurrencyPopUp()
+                                    changeCurrencyPopUpStatus()
                                  }
                               }} to='/cart'>
                                  <Button onClickHandler={() => { }} children={'check out'} modStyle={'check-out'} />
@@ -148,9 +134,9 @@ export class Header extends React.Component {
                </div>
             </div>
             <div onClick={() => {
-               this.changeMyBagPopUp()
+               changeMyBagPopUpStatus()
                if (activeCurrencyPopUp) {
-                  this.changeCurrencyPopUp()
+                  changeCurrencyPopUpStatus()
                }
             }}
                className={activeMyBagPopUp ? "disabled active" : "disabled"}>

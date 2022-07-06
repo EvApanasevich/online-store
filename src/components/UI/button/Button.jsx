@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Button.scss";
+import './Button.scss';
 
 export class Button extends React.Component {
    constructor(props) {
@@ -9,9 +9,10 @@ export class Button extends React.Component {
    }
 
    render() {
-      const { onClickHandler } = this.props
+      const { onClickHandler, modStyle, children} = this.props
+
       return (
-         <div onClick={() => onClickHandler()} className={`button ${this.props.modStyle}`}>{this.props.children}</div>
+         <div onClick={() => onClickHandler()} className={`button ${modStyle}`}>{children}</div>
       )
    }
 }

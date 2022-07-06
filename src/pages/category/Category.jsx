@@ -8,20 +8,10 @@ export class Category extends React.Component {
       this.state = {
       }
    }
-   componentDidMount() {
-      this.props.getCategory(this.props.currentCategoryName)
-      window.scrollTo(0,0)
-   }
-   componentDidUpdate(prevProps) {
-      if (this.props.currentCategoryName !== prevProps.currentCategoryName) {
-         this.props.getCategory(this.props.currentCategoryName)
-         window.scrollTo(0,0)
-      }
-   }
-
+   
    render() {
       const { currentCategory, currentCategoryName, productsInCartIds } = this.props
-
+      
       if (this.props.status === 'loading') {
          return <div className={"loader__container"}>LOADING...</div>
       }
@@ -29,8 +19,8 @@ export class Category extends React.Component {
       return (
          <div className={"category"}>
             <div className={"category__container"}>
-               <h1 className='category__name'>{currentCategoryName}</h1>
-               <div className='category__cards'>
+               <h1 className={"category__name"}>{currentCategoryName}</h1>
+               <div className={"category__cards"}>
                   {currentCategory.products.map(product =>
                      <ProductCard key={product.id}
                         product={product}

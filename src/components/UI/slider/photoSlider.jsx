@@ -31,7 +31,7 @@ export class PhotoSlider extends React.Component {
          <div className={"photo-slider"}>
             <div style={{ transform: `translateX(${this.state.position}px)` }} className={"photos-line"}>
                {product.gallery.map(photo =>
-                  <img onClick={() => enlargePhoto(photo)} key={product.gallery.indexOf(photo)} src={photo} alt="product" />
+                  <img onClick={() => enlargePhoto(photo)} key={product.gallery.indexOf(photo)} src={photo} alt='product' />
                )}
             </div>
             {product.gallery.length > 1 &&
