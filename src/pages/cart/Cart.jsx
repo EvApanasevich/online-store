@@ -3,7 +3,7 @@ import { CartItem } from '../../components/cart-item/CartItem';
 import { Button } from '../../components/UI/button/Button';
 import Modal from '../../components/UI/modal/Modal';
 import './Cart.scss';
-import util from '../../util/general-functions';
+import util from '../../util/common-methods';
 
 export class Cart extends React.Component {
    constructor(props) {
@@ -11,7 +11,7 @@ export class Cart extends React.Component {
       this.state = {
          tax: 21,
          visibleModal: false,
-         viewedPhoto: ''
+         viewedPhoto: '',
       }
    }
    componentDidMount() {
@@ -36,11 +36,12 @@ export class Cart extends React.Component {
    }
    enlargePhoto(viewedPhoto) {
       this.setVisibleModal()
-      this.setState({ viewedPhoto: viewedPhoto})
+      this.setState({ viewedPhoto: viewedPhoto })
    }
 
    render() {
-      const { productsInCart, currentCurrency, setSelectedAttributeValueFromCart, setCountProduct, removeAllProducts } = this.props
+      const { productsInCart, currentCurrency, setSelectedAttributeValueFromCart,
+         setCountProduct, removeAllProducts } = this.props
 
       return (
          <div className={"cart"}>
@@ -49,8 +50,11 @@ export class Cart extends React.Component {
                <div className={"cart__list-products"}>
                   <div className={"line"}></div>
                   {this.getQuantityProducts() === 0 ?
-                     <div className={"cart__no-products"}>There are no products in the cart. Please add a product. Happy shopping!</div> :
+                     <div className={"cart__no-products"}>
+                        There are no products in the cart. Please add a product. Happy shopping!
+                     </div> :
                      [...productsInCart].reverse().map((product) =>
+                     // Products is rendered on the cart page
                         <div key={product.id}>
                            <CartItem
                               product={product}
@@ -79,6 +83,7 @@ export class Cart extends React.Component {
                   <Button onClickHandler={() => { removeAllProducts() }} children={'order'} modStyle={'order'} />
                }
             </div>
+            {/* Modal window for viewing a photo in an enlarged view */}
             <Modal children={<img src={this.state.viewedPhoto} alt={'viewed'} />}
                visibleModal={this.state.visibleModal}
                setVisibleModal={this.setVisibleModal.bind(this)} />

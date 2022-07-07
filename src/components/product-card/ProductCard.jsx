@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductCard.scss';
 import cart from '../../assets/images/cart-white.svg';
 import { NavLink } from 'react-router-dom';
-import util from '../../util/general-functions';
+import util from '../../util/common-methods';
 
 export class ProductCard extends React.Component {
    constructor(props) {
@@ -21,6 +21,8 @@ export class ProductCard extends React.Component {
                   <img src={product.gallery[0]} alt='product' />
                </div>
             </NavLink>
+            {/* if the product is not in the cart, then the logo is rendered, 
+            but if the product is already in the cart, " In cart " is rendered */}
             {!inCart ?
                   <div onClick={() => putProductInCart(product)} className={"product-card__cart"}>
                      <img src={cart} alt='cart' />

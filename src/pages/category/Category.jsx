@@ -21,6 +21,7 @@ export class Category extends React.Component {
             <div className={"category__container"}>
                <h1 className={"category__name"}>{currentCategoryName}</h1>
                <div className={"category__cards"}>
+                  {/* Products cards are rendered */}
                   {currentCategory.products.map(product =>
                      <ProductCard key={product.id}
                         product={product}

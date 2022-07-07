@@ -3,7 +3,7 @@ import './CartItem.scss'
 import { TextAttributeBtn } from '../UI/attribute-text-btn/TextAttributeBtn';
 import { SwatchAttributeBtn } from '../UI/attribute-swatch-btn/SwatchAttributeBtn';
 import { PhotoSlider } from '../UI/slider/photoSlider';
-import util from '../../util/general-functions';
+import util from '../../util/common-methods';
 
 export class CartItem extends React.Component {
    constructor(props) {
@@ -11,23 +11,11 @@ export class CartItem extends React.Component {
       this.state = {
       }
    }
-   getAttributeStyle(type) {
-      if (type === 'text') {
-         return "bag-item__attribute_text"
-      } else if (type === 'swatch') {
-         return "bag-item__attribute_swatch"
-      }
-   }
-   isSelected(attributeId, attributeItemId) {
-      return this.props.product.selectedAttributes.some(selectedAttribute =>
-         selectedAttribute.attributeId === attributeId &&
-         selectedAttribute.attributeValue === attributeItemId)
-   }
-
+   
    render() {
       const { product, setSelectedAttributeValueFromCart, setCountProduct,
          cartPopUp, enlargePhoto, currentCurrency } = this.props
-         
+
       return (
          <div className={cartPopUp ? "bag-item in-popup" : "bag-item"}>
             <div className={"bag-item__line"}></div>
@@ -47,9 +35,11 @@ export class CartItem extends React.Component {
                         <span className={cartPopUp ? "bag-item__attribute-name in-popup" : "bag-item__attribute-name"}>
                            {attribute.name}:
                         </span>
-                        <div className={this.getAttributeStyle(attribute.type)}>
+                        <div className={util.getAttributeStyle(attribute.type, 'bag-item')}>
+                           {/* Attributes are rendered */}
                            {attribute.items.map(item =>
                               attribute.type === 'text' ?
+                                 // Components responsible for rendering attributes
                                  <TextAttributeBtn
                                     onClickHandler={() => {
                                        setSelectedAttributeValueFromCart({
@@ -59,7 +49,7 @@ export class CartItem extends React.Component {
                                     }}
                                     key={item.id}
                                     children={item.value}
-                                    selected={this.isSelected(attribute.id, item.id)}
+                                    selected={util.isSelected(attribute.id, item.id, product)}
                                     disable={!product.inStock}
                                     cartPopUp={cartPopUp}
                                  />
@@ -73,7 +63,7 @@ export class CartItem extends React.Component {
                                     }}
                                     key={item.id}
                                     bgcolor={item.value}
-                                    selected={this.isSelected(attribute.id, item.id)}
+                                    selected={util.isSelected(attribute.id, item.id, product)}
                                     disable={!product.inStock}
                                     cartPopUp={cartPopUp}
                                  />
@@ -84,6 +74,7 @@ export class CartItem extends React.Component {
                </div>
             </div>
             <div className={cartPopUp ? "bag-item__photo-block in-popup" : "bag-item__photo-block"}>
+               {/* Increase and decrease in the quantity of goods of the same type */}
                <div className={"bag-item__count count"}>
                   <div onClick={() => setCountProduct({ productId: product.id, step: 'inc' })}
                      className={cartPopUp ? "count__increment in-popup" : "count__increment"}>
@@ -93,6 +84,8 @@ export class CartItem extends React.Component {
                      className={cartPopUp ? "count__decrement in-popup" : "count__decrement"}>
                   </div>
                </div>
+               {/* if the pop-up is open, then the first photo is rendered, 
+               but if the cart page is open, then the slider is rendered */}
                <div className={cartPopUp ? "bag-item__photo in-popup" : "bag-item__photo"}>
                   {cartPopUp ? <img src={product.gallery[0]} alt='product' /> :
                      <PhotoSlider product={product} enlargePhoto={enlargePhoto} />

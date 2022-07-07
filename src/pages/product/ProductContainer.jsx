@@ -5,6 +5,8 @@ import { addProductInCart } from '../../redux/cartSlice';
 import { getProduct, setCurrentPhoto, setSelectedAttributeValue } from '../../redux/productSlice';
 import { Product } from './Product';
 
+// getting parameters is possible when using hooks, so I had to make a wrapper
+// to take product id from url
 const withRouter = WrappedComponent => props => {
    let params = useParams()
    return (
@@ -22,6 +24,7 @@ class ProductContainer extends React.Component {
       }
    }
    componentDidMount() {
+      // when going to the product page, we take the ID from the URL and request the product
       this.props.getProduct(this.props.params.id)
       window.scrollTo(0, 0)
    }
@@ -52,11 +55,11 @@ const mapStateToProps = (state) => {
    }
 }
 
-const withR = withRouter(ProductContainer)
+const wrappedWithRouter = withRouter(ProductContainer)
 
 export default connect(mapStateToProps, {
    getProduct,
    setSelectedAttributeValue,
    setCurrentPhoto,
    addProductInCart,
-})(withR)
+})(wrappedWithRouter)
