@@ -21,6 +21,9 @@ const cartSlice = createSlice({
       addProductInCart: (state, action) => {
          state.products.push(action.payload)
       },
+      removeAllProducts: (state, action) => {
+         state.products = []
+      },
       setSelectedAttributeValueFromCart: (state, action) => {
          state.products.forEach(product => {
             if (product.id === action.payload.productId) {
@@ -53,6 +56,7 @@ const cartSlice = createSlice({
    }
 })
 
-export const { putProductInCart, addProductInCart, setSelectedAttributeValueFromCart, setCountProduct } = cartSlice.actions
+export const { putProductInCart, addProductInCart, setSelectedAttributeValueFromCart,
+   setCountProduct, removeAllProducts } = cartSlice.actions
 
 export default cartSlice.reducer

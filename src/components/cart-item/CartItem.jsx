@@ -27,7 +27,7 @@ export class CartItem extends React.Component {
    render() {
       const { product, setSelectedAttributeValueFromCart, setCountProduct,
          cartPopUp, enlargePhoto, currentCurrency } = this.props
-
+         
       return (
          <div className={cartPopUp ? "bag-item in-popup" : "bag-item"}>
             <div className={"bag-item__line"}></div>

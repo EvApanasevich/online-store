@@ -12,7 +12,7 @@ export class Modal extends React.Component {
       
       return (
          <div className={visibleModal ? "modal active" : "modal"} onClick={() => setVisibleModal()}>
-            <div className={"modalContent"} onClick={(e) => e.stopPropagation()}>
+            <div className={"modalContent"} >
                {children}
             </div>
          </div>

@@ -40,7 +40,7 @@ export class Cart extends React.Component {
    }
 
    render() {
-      const { productsInCart, currentCurrency, setSelectedAttributeValueFromCart, setCountProduct } = this.props
+      const { productsInCart, currentCurrency, setSelectedAttributeValueFromCart, setCountProduct, removeAllProducts } = this.props
 
       return (
          <div className={"cart"}>
@@ -76,7 +76,7 @@ export class Cart extends React.Component {
                   </div>
                </div>
                {this.getQuantityProducts() !== 0 &&
-                  <Button onClickHandler={() => { }} children={'order'} modStyle={'order'} />
+                  <Button onClickHandler={() => { removeAllProducts() }} children={'order'} modStyle={'order'} />
                }
             </div>
             <Modal children={<img src={this.state.viewedPhoto} alt={'viewed'} />}

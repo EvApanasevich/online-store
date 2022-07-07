@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Cart } from './Cart';
 import {
    setSelectedAttributeValueFromCart,
-   setCountProduct
+   setCountProduct,
+   removeAllProducts,
 } from '../../redux/cartSlice';
 
 class CartContainer extends React.Component {
@@ -19,6 +20,7 @@ class CartContainer extends React.Component {
             currentCurrency={this.props.currentCurrency}
             setSelectedAttributeValueFromCart={this.props.setSelectedAttributeValueFromCart}
             setCountProduct={this.props.setCountProduct}
+            removeAllProducts={this.props.removeAllProducts}
          />
       )
    }
@@ -33,5 +35,5 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
    setSelectedAttributeValueFromCart,
-   setCountProduct,
+   setCountProduct, removeAllProducts,
 })(CartContainer)
