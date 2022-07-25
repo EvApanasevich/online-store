@@ -1,0 +1,11 @@
+import { useParams } from 'react-router-dom';
+
+export const withRouter = WrappedComponent => props => {
+   let params = useParams()
+   return (
+      <WrappedComponent
+         {...props}
+         params={params}
+      />
+   )
+}

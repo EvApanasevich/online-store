@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Header.scss';
 import logo from '../assets/images/logo.svg';
 import cart from '../assets/images/cart.svg';
@@ -18,15 +18,27 @@ export class Header extends React.Component {
       this.props.changeCurrentCurrency(symbol)
       this.props.changeCurrencyPopUpStatus()
    }
+   changeMyCurrencyPopUp() {
+      this.props.changeCurrencyPopUpStatus()
+      if (this.props.activeMyBagPopUp) {
+         this.props.changeMyBagPopUpStatus()
+      }
+   }
+   changeMyBagPopUp() {
+      this.props.changeMyBagPopUpStatus()
+      if (this.props.activeCurrencyPopUp) {
+         this.props.changeCurrencyPopUpStatus()
+      }
+   }
    changeCategory(name) {
       this.props.changeCurrentCategory(name)
       if (this.props.activeCurrencyPopUp && this.props.activeMyBagPopUp) {
-         this.changeCurrencyPopUp()
-         this.changeMyBagPopUp()
+         this.props.changeCurrencyPopUpStatus()
+         this.props.changeMyBagPopUpStatus()
       } else if (this.props.activeMyBagPopUp) {
-         this.changeMyBagPopUp()
+         this.props.changeMyBagPopUpStatus()
       } else if (this.props.activeCurrencyPopUp) {
-         this.changeCurrencyPopUp()
+         this.props.changeCurrencyPopUpStatus()
       }
    }
 
@@ -48,9 +60,11 @@ export class Header extends React.Component {
                      {/* The names of product categories are rendered */}
                      {categoriesNames.map((categoryName) =>
                         <li key={categoryName.name} className={currentCategoryName === categoryName.name ? "menu__item active" : "menu__item"}>
-                           <Link to='/' onClick={() => this.changeCategory(categoryName.name)} className={"menu__link"}>
+                           <NavLink to={`/category/${categoryName.name}`}
+                              onClick={() => this.changeCategory(categoryName.name)}
+                              className={"menu__link"}>
                               {categoryName.name}
-                           </Link>
+                           </NavLink>
                         </li>
                      )}
                   </ul>
@@ -64,7 +78,7 @@ export class Header extends React.Component {
                <div className={"action"}>
                   <div className={"action__currency"}>
                      {/* Current currency is rendered */}
-                     <div onClick={() => changeCurrencyPopUpStatus()}
+                     <div onClick={() => this.changeMyCurrencyPopUp()}
                         className={activeCurrencyPopUp ?
                            "action__currency-logo active" : "action__currency-logo"}>{currentCurrency}
                      </div>
@@ -83,12 +97,12 @@ export class Header extends React.Component {
                   </div>
                   {/* Cart logo */}
                   <div className={"action__cart"}>
-                     <div onClick={() => changeMyBagPopUpStatus()} className={"action__cart-logo"}>
+                     <div onClick={() => this.changeMyBagPopUp()} className={"action__cart-logo"}>
                         <img src={cart} alt='cart' />
                      </div>
                      {/* Count products in the cart */}
                      {(productsInCart.length > 0) &&
-                        <div onClick={() => changeMyBagPopUpStatus()}
+                        <div onClick={() => this.changeMyBagPopUp()}
                            className={"action__things-counter"}>{productsInCart.length}
                         </div>}
                      {/* Pop up cart in the header */}
@@ -105,12 +119,13 @@ export class Header extends React.Component {
                                     There are no products in the cart. Please add a product. Happy shopping!
                                  </div> :
                                  productsInCart.map((product) =>
-                                    <CartItem key={product.id}
+                                    <CartItem key={product.idForCart}
                                        product={product}
                                        currentCurrency={currentCurrency}
                                        setSelectedAttributeValueFromCart={setSelectedAttributeValueFromCart}
                                        setCountProduct={setCountProduct}
                                        cartPopUp={true}
+                                       inCart={true}
                                     />
                                  )
                               }

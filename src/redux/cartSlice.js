@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v1 } from 'uuid';
 
 const initialState = {
    cartStatus: 'loading',
@@ -10,23 +11,84 @@ const cartSlice = createSlice({
    initialState,
    reducers: {
       putProductInCart: (state, action) => {
-         state.products.push({
-            ...action.payload,
-            selectedAttributes: action.payload.attributes.map(attribute => {
-               return { attributeId: attribute.id, attributeValue: attribute.items[0].id }
-            }),
-            count: 1
-         })
+         let matched = false
+         const inCart = state.products.some(product =>
+            product.id === action.payload.id
+         )
+
+         if (!inCart) {
+            state.products.push({
+               ...action.payload,
+               idForCart: v1(),
+               selectedAttributes: action.payload.attributes.map(attribute => {
+                  return { attributeId: attribute.id, attributeValue: attribute.items[0].id }
+               }),
+               count: 1
+            })
+         } else {
+            state.products.forEach(product => {
+               let attributeMatch = false
+               if (product.id === action.payload.id) {
+                  attributeMatch = product.selectedAttributes.every(selectedAttribute =>
+                     action.payload.attributes.some(newProductAttribute =>
+                        newProductAttribute.items[0].displayValue === selectedAttribute.attributeValue)
+                  )
+                  if (attributeMatch) {
+                     product.count += 1
+                     matched = true
+                  }
+               }
+            })
+            if (!matched) {
+               state.products.push({
+                  ...action.payload,
+                  idForCart: v1(),
+                  selectedAttributes: action.payload.attributes.map(attribute => {
+                     return { attributeId: attribute.id, attributeValue: attribute.items[0].id }
+                  }),
+                  count: 1
+               })
+            }
+         }
       },
       addProductInCart: (state, action) => {
-         state.products.push(action.payload)
+         let matched = false
+         const inCart = state.products.some(product => product.id === action.payload.id)
+
+         if (!inCart) {
+            state.products.push({
+               ...action.payload,
+               idForCart: v1(),
+            })
+         } else {
+            state.products.forEach(product => {
+               let attributeMatch = false
+               if (product.id === action.payload.id) {
+                  attributeMatch = product.selectedAttributes.every(selectedAttribute =>
+                     action.payload.selectedAttributes.some(newProductAttribute =>
+                        newProductAttribute.attributeId === selectedAttribute.attributeId &&
+                        newProductAttribute.attributeValue === selectedAttribute.attributeValue)
+                  )
+                  if (attributeMatch) {
+                     product.count += 1
+                     matched = true
+                  }
+               }
+            })
+            if (!matched) {
+               state.products.push({
+                  ...action.payload,
+                  idForCart: v1(),
+               })
+            }
+         }
       },
       removeAllProducts: (state, action) => {
          state.products = []
       },
       setSelectedAttributeValueFromCart: (state, action) => {
          state.products.forEach(product => {
-            if (product.id === action.payload.productId) {
+            if (product.idForCart === action.payload.idForCart) {
                product.selectedAttributes.forEach(attribute => {
                   if (attribute.attributeId === action.payload.attributeId) {
                      attribute.attributeValue = action.payload.attributeValue
@@ -34,10 +96,25 @@ const cartSlice = createSlice({
                })
             }
          })
+         let matched = false
+         state.products.forEach(product => {
+            if (!matched) {
+               state.products.forEach(itemProduct => {
+                  if (product.idForCart !== itemProduct.idForCart) {
+                     if (JSON.stringify(product.selectedAttributes) === JSON.stringify(itemProduct.selectedAttributes)) {
+                        matched = true
+                        product.count = product.count + itemProduct.count
+                        state.products = state.products.filter(filterableProduct =>
+                           filterableProduct.idForCart !== itemProduct.idForCart)
+                     }
+                  }
+               })
+            }
+         })
       },
       setCountProduct: (state, action) => {
          state.products.forEach(product => {
-            if (product.id === action.payload.productId) {
+            if (product.idForCart === action.payload.idForCart) {
                if (action.payload.step === 'inc') {
                   product.count++
                }
@@ -46,7 +123,7 @@ const cartSlice = createSlice({
                      product.count--
                   } else {
                      state.products = state.products.filter(product =>
-                        product.id !== action.payload.productId
+                        product.idForCart !== action.payload.idForCart
                      )
                   }
                }

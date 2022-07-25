@@ -9,13 +9,13 @@ export class TextAttributeBtn extends React.Component {
    }
 
    render() {
-      const { selected, inCart, children, disable, cartPopUp, onClickHandler } = this.props
+      const { selected, children, disable, cartPopUp, onClickHandler } = this.props
 
       return (
-         <button disabled={disable || selected || inCart} onClick={() => onClickHandler()}
-            className={selected && !disable && !inCart ?
+         <button disabled={disable || selected || cartPopUp} onClick={() => onClickHandler()}
+            className={selected && !disable ?
                cartPopUp ? "text-attribute-btn in-popup selected" : "text-attribute-btn selected" :
-               disable || inCart ?
+               disable ?
                   cartPopUp ? "text-attribute-btn in-popup out-of-stock" : "text-attribute-btn out-of-stock" :
                   cartPopUp ? "text-attribute-btn in-popup" : "text-attribute-btn"}>
             {children}

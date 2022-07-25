@@ -73,9 +73,9 @@
       transition: opacity 0.2s ease 0s;
       cursor: pointer;
       &_in {
-         @extend .product-card__cart;
-         background-color: #ffffff;
-         border: 1px solid $second-color;
+         position: absolute;
+         top: 5%;
+         left: 5%;
          color: $second-color;
          text-align: center;
          line-height: 1;

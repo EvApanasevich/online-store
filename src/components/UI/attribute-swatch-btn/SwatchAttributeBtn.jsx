@@ -10,16 +10,16 @@ export class SwatchAttributeBtn extends React.Component {
    }
 
    render() {
-      const { bgcolor, selected, inCart, cartPopUp, disable } = this.props
+      const { bgcolor, selected, cartPopUp, disable } = this.props
 
       return (
-         <button disabled={disable || selected || inCart}
+         <button disabled={disable || selected || cartPopUp}
             onClick={() => this.props.onClickHandler()} style={{ backgroundColor: `${bgcolor}` }}
-            className={selected && !disable && !inCart ?
+            className={selected && !disable ?
                cartPopUp ? "attribute-swatch-color in-popup selected" : "attribute-swatch-color selected" :
                `${bgcolor}` === '#FFFFFF' ?
                   cartPopUp ? "attribute-swatch-color in-popup white" : "attribute-swatch-color white" :
-                  disable || inCart ?
+                  disable ?
                      cartPopUp ? "attribute-swatch-color in-popup out-of-stock" : "attribute-swatch-color out-of-stock" :
                      cartPopUp ? "attribute-swatch-color in-popup" : "attribute-swatch-color"}>
          </button>

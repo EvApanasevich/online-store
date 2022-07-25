@@ -13,7 +13,7 @@ export class CartItem extends React.Component {
    }
    
    render() {
-      const { product, setSelectedAttributeValueFromCart, setCountProduct,
+      const { product, inCart, setSelectedAttributeValueFromCart, setCountProduct,
          cartPopUp, enlargePhoto, currentCurrency } = this.props
 
       return (
@@ -43,7 +43,8 @@ export class CartItem extends React.Component {
                                  <TextAttributeBtn
                                     onClickHandler={() => {
                                        setSelectedAttributeValueFromCart({
-                                          productId: product.id,
+                                          id: product.id,
+                                          idForCart: product.idForCart,
                                           attributeId: attribute.id, attributeValue: item.id
                                        })
                                     }}
@@ -52,12 +53,13 @@ export class CartItem extends React.Component {
                                     selected={util.isSelected(attribute.id, item.id, product)}
                                     disable={!product.inStock}
                                     cartPopUp={cartPopUp}
+                                    inCart={inCart}
                                  />
                                  :
                                  <SwatchAttributeBtn
                                     onClickHandler={() => {
                                        setSelectedAttributeValueFromCart({
-                                          productId: product.id,
+                                          idForCart: product.idForCart,
                                           attributeId: attribute.id, attributeValue: item.id
                                        })
                                     }}
@@ -66,6 +68,7 @@ export class CartItem extends React.Component {
                                     selected={util.isSelected(attribute.id, item.id, product)}
                                     disable={!product.inStock}
                                     cartPopUp={cartPopUp}
+                                    inCart={inCart}
                                  />
                            )}
                         </div>
@@ -76,11 +79,11 @@ export class CartItem extends React.Component {
             <div className={cartPopUp ? "bag-item__photo-block in-popup" : "bag-item__photo-block"}>
                {/* Increase and decrease in the quantity of goods of the same type */}
                <div className={"bag-item__count count"}>
-                  <div onClick={() => setCountProduct({ productId: product.id, step: 'inc' })}
+                  <div onClick={() => setCountProduct({ idForCart: product.idForCart, step: 'inc' })}
                      className={cartPopUp ? "count__increment in-popup" : "count__increment"}>
                   </div>
                   <div className={cartPopUp ? "count__number in-popup" : "count__number"}>{product.count}</div>
-                  <div onClick={() => setCountProduct({ productId: product.id, step: 'dec' })}
+                  <div onClick={() => setCountProduct({ idForCart: product.idForCart, step: 'dec' })}
                      className={cartPopUp ? "count__decrement in-popup" : "count__decrement"}>
                   </div>
                </div>

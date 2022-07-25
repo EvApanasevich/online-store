@@ -27,7 +27,8 @@ class App extends React.Component {
          <div>
             <HeaderContainer />
             <Routes>
-               <Route path='/' element={<CategoryContainer />} />
+               <Route path='/' element={<Navigate to={`/category/all`} />} />
+               <Route path={`category/:id`} element={<CategoryContainer />} />
                <Route path={`product/:id`} element={<ProductContainer />} />
                <Route path='cart' element={<CartContainer />} />
                <Route path='*' element={<Navigate to='/' />} />

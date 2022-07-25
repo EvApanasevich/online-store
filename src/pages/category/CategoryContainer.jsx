@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Category } from './Category';
 import { putProductInCart } from '../../redux/cartSlice';
 import { getCategory } from '../../redux/categorySlice';
+import { changeCurrentCategory } from '../../redux/appSlice';
+import { withRouter } from '../../util/with-router';
 
 export class CategoryContainer extends React.Component {
    constructor(props) {
@@ -11,13 +13,14 @@ export class CategoryContainer extends React.Component {
       }
    }
    componentDidMount() {
-      this.props.getCategory(this.props.currentCategoryName)
-      window.scrollTo(0,0)
+      this.props.getCategory(this.props.params.id)
+      this.props.changeCurrentCategory(this.props.params.id)
+      window.scrollTo(0, 0)
    }
    componentDidUpdate(prevProps) {
       if (this.props.currentCategoryName !== prevProps.currentCategoryName) {
-         this.props.getCategory(this.props.currentCategoryName)
-         window.scrollTo(0,0)
+         this.props.getCategory(this.props.params.id)
+         window.scrollTo(0, 0)
       }
    }
 
@@ -45,7 +48,10 @@ const mapStateToProps = (state) => {
    }
 }
 
+const wrappedCategoryWithRouter = withRouter(CategoryContainer)
+
 export default connect(mapStateToProps, {
    getCategory,
    putProductInCart,
-})(CategoryContainer)
+   changeCurrentCategory,
+})(wrappedCategoryWithRouter)

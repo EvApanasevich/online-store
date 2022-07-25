@@ -42,6 +42,7 @@ export class Cart extends React.Component {
    render() {
       const { productsInCart, currentCurrency, setSelectedAttributeValueFromCart,
          setCountProduct, removeAllProducts } = this.props
+      console.log(productsInCart);
 
       return (
          <div className={"cart"}>
@@ -54,9 +55,10 @@ export class Cart extends React.Component {
                         There are no products in the cart. Please add a product. Happy shopping!
                      </div> :
                      [...productsInCart].reverse().map((product) =>
-                     // Products is rendered on the cart page
-                        <div key={product.id}>
+                        // Products is rendered on the cart page
+                        <div key={product.idForCart}>
                            <CartItem
+                              inCart={true}
                               product={product}
                               currentCurrency={currentCurrency}
                               setSelectedAttributeValueFromCart={setSelectedAttributeValueFromCart}

@@ -12,7 +12,7 @@ export class ProductCard extends React.Component {
    }
 
    render() {
-      const { product, putProductInCart, inCart, currentCurrency} = this.props
+      const { product, putProductInCart, inCart, currentCurrency } = this.props
 
       return (
          <div className={!product.inStock ? "product-card out-of-stock" : "product-card"}>
@@ -21,14 +21,10 @@ export class ProductCard extends React.Component {
                   <img src={product.gallery[0]} alt='product' />
                </div>
             </NavLink>
-            {/* if the product is not in the cart, then the logo is rendered, 
-            but if the product is already in the cart, " In cart " is rendered */}
-            {!inCart ?
-                  <div onClick={() => putProductInCart(product)} className={"product-card__cart"}>
-                     <img src={cart} alt='cart' />
-                  </div> :
-                  <div className={"product-card__cart_in"}>in cart</div>
-               }
+            <div onClick={() => putProductInCart(product)} className={"product-card__cart"}>
+               <img src={cart} alt='cart' />
+            </div>
+            {inCart && <div className={"product-card__cart_in"}>in cart</div>}
             <div className={"product-card__title"}>{product.brand} {product.name}
             </div>
             <span className={"product-card__price"}>{util.getPrice(product, currentCurrency)}</span>
