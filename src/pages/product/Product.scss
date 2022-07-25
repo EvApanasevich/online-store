@@ -157,11 +157,22 @@
       &__container {
          flex-direction: column;
          .product__photoBlock {
+            overflow: auto;
             .product__photo-line {
+               min-width: 690px;
+               overflow: auto;
                flex-direction: row;
                align-items: center;
                column-gap: 2%;
-               padding: rem(0px);
+               padding-bottom: rem(10px);
+               &::-webkit-scrollbar {
+                  width: 5px;
+                  background-color: #f9f9fd;
+               }
+               &::-webkit-scrollbar-thumb {
+                  border-radius: 10px;
+                  background-color: $second-color;
+               }
             }
             .product__photo {
                justify-content: center;
